@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 /**
  * Created by acastells on 05/04/16.
  */
@@ -17,5 +19,11 @@ public enum Numeros {
 			return numero+"";
 		}
 		return super.toString();
+	}
+	public Numeros next(){
+	if(ordinal() == values().length -1){
+		throw new NoSuchElementException();
+	}
+		return values()[ordinal() +1];
 	}
 }

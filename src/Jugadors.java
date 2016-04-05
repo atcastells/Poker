@@ -24,7 +24,13 @@ public class Jugadors {
 		return 1;
 	}
 
+	public Carta getCarta(int x){
+		return ma[x];
+	}
+	public String getNom(){
+		return nom;
+	}
 	public String toString(){
-		return(nom+"\n"+"\t"+ma[1]+"\n"+"\t"+ma[0]);
+		return(ma[1]+"\n"+ma[0]);
 	}
 }
