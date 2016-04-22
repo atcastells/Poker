@@ -33,4 +33,7 @@ public class Jugadors {
 	public String toString(){
 		return(ma[1]+"\n"+ma[0]);
 	}
+	public int getCredit(){
+		return Diners;
+	}
 }
