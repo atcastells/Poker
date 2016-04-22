@@ -46,13 +46,23 @@ public class Jugadors {
 
 	void aposta(int x,gui gui){
 		int novaAposta = 0;
+		int apostaAnterior = aposta;
+		int diferencia;
 		if(diners > x){
 			do{
 				novaAposta=gui.readInt("Introdueix la teva nova aposta: ");
 			}
-			while (novaAposta < x);
+			while (novaAposta < x && novaAposta <= diners);
+			diferencia = novaAposta - apostaAnterior;
 			aposta += novaAposta;
-			diners = diners - novaAposta;
+			diners = diners - diferencia;
 		}
+	}
+	void aposta(int x,int y,gui gui){
+		int apostaAnterior = aposta;
+		int novaAposta = y;
+		int diferencia = novaAposta - apostaAnterior;
+		aposta += novaAposta;
+		diners = diners - diferencia;
 	}
 }
