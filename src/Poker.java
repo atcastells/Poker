@@ -42,40 +42,71 @@ public class Poker {
 
 		/*Començem el loop principal*/
 		while (!guanyador){
-			//Mostra missatge de jugador principal
-			gui.imprimir("Jugador: "+llistaJugadors.get(jugadorPrincipal).getNom());
-			gui.ln();gui.ln();
-			gui.imprimir(gui.funcioMenu(menuOpcions));
-			int opcioMenu = gui.readInt("Selecciona una opció: ");
-			switch (opcioMenu){
-				case 1:  //Apostar
-					break;
-				case 2:  //Pujar
-					break;
-				case 3: //Igualar
-					break;
-				case 4: //Pasar
-					break;
-				case 5: //Retirarse
-					break;
-				case 6: //Jugar
-					break;
-				case 7: //Veure cartes
-					gui.ln();
-					gui.imprimir("Cartes propies:");
-					gui.ln();
-					gui.imprimir(llistaJugadors.get(jugadorPrincipal).toString());
+
+			//Recorrem els jugadors
+			for(int i = 0; i < llistaJugadors.size();i++){
+				if(i == jugadorPrincipal){  //Torn del jugador Principal
+					boolean pujar = taula1.getApostaMax() > llistaJugadors.get(jugadorPrincipal).getAposta();
+					boolean igualar = taula1.getApostaMax() > llistaJugadors.get(jugadorPrincipal).getAposta();
+					boolean apostar = taula1.getDiners() == 0;
+					boolean allIn = llistaJugadors.get(jugadorPrincipal).getCredit() < taula1.getMinAposta() || llistaJugadors.get(jugadorPrincipal).getCredit() < taula1.getApostaMax();
+					//Mostra missatge de jugador principal
+					gui.imprimir("Jugador: "+llistaJugadors.get(jugadorPrincipal).getNom());
 					gui.ln();gui.ln();
-					gui.imprimir("Cartes taula:");
-					gui.ln();
-					for(int i = 0; i < taula1.cartesMostrades;i++){
-						gui.imprimir(taula1.getCarta(i));
-						gui.ln();
+					gui.imprimir(gui.funcioMenu(menuOpcions));
+					int opcioMenu = gui.readInt("Selecciona una opció: ");
+					switch (opcioMenu){
+						case 1:  //Apostar
+							gui.ln();
+							gui.imprimir("Aposta mínima: "+taula1.getMinAposta());
+							gui.ln();
+							gui.imprimir("Diners totals: "+llistaJugadors.get(jugadorPrincipal).getCredit());
+							gui.ln();
+							if(apostar){
+							llistaJugadors.get(jugadorPrincipal).aposta(taula1.minAposta,gui);
+							}
+							else {
+								gui.ln();
+								gui.imprimir("No pots apostar, puja o iguala la aposta.");
+							}
+							break;
+						case 2:  //Pujar
+							gui.ln();
+							gui.imprimir("Aposta actual: "+taula1.getApostaMax());
+							gui.ln();
+							gui.imprimir("Diners totals: "+llistaJugadors.get(jugadorPrincipal).getCredit());
+							gui.ln();
+							if(pujar){
+								llistaJugadors.get(jugadorPrincipal).aposta(taula1.minAposta,gui);
+							}
+							break;
+						case 3: //Igualar
+							break;
+						case 4: //Pasar
+							break;
+						case 5: //Retirarse
+							break;
+						case 6: //Jugar
+							break;
+						case 7: //Veure cartes
+							gui.ln();
+							gui.imprimir("Cartes propies:");
+							gui.ln();
+							gui.imprimir(llistaJugadors.get(jugadorPrincipal).toString());
+							gui.ln();gui.ln();
+							gui.imprimir("Cartes taula:");
+							gui.ln();
+							for(int j = 0; j < taula1.cartesMostrades;j++){
+								gui.imprimir(taula1.getCarta(j));
+								gui.ln();
+							}
+							gui.ln();
+							break;
 					}
-					gui.ln();
-					break;
+					gui.enterContinue();
+				}
 			}
-			gui.enterContinue();
+
 		}
 
 	}

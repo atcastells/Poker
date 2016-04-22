@@ -5,7 +5,8 @@ public class Taula {
 	Carta[] cartesTaula;
 	int cartesMostrades;
 	int minAposta;
-	int aposta = 0;
+	int diners = 0;
+	int apostaMax = 0;
 
 	public Taula(Carta[] cartesTaula,int x, int y){
 		this.cartesTaula = cartesTaula;
@@ -19,10 +20,13 @@ public class Taula {
 	int getMinAposta(){
 		return minAposta;
 	}
-	int getAposta(){
-		return aposta;
+	int getDiners(){
+		return diners;
 	}
 	String getCarta(int x){
 		return cartesTaula[x].toString();
+	}
+	int getApostaMax(){
+		return apostaMax;
 	}
 }
