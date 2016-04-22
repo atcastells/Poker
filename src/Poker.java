@@ -10,14 +10,12 @@ public class Poker {
 	}
 
 	void inici(){
-		/*Creem Baraja*/
+
+		/*Inicialització*/
 		gui gui = new gui();
 		Deck deck1 = new Deck();
-		int x = deck1.numCartes();
-		int jugadorPrincipal = 0;
-		/*for(int i = 0; i < x; i++){
-			System.out.print((i+1)+"    "+deck1.getCard()+"\n");
-		}*/
+		int jugadorPrincipal;
+		boolean guanyador = false;
 
 		/*Creem Jugadors*/
 		//Creem Llista jugadors
@@ -28,21 +26,13 @@ public class Poker {
 		afegirJugadors(deck1,llistaJugadors,"Marc",100);
 		afegirJugadors(deck1,llistaJugadors,"Aaron",100);
 
-		/*Llistem les mans de cada jugador*/
-		/*for(int i = 0; i < llistaJugadors.size();i++){
-			System.out.println(llistaJugadors.get(i).getNom()+"\n"+llistaJugadors.get(i).toString());
-		}*/
-		
-		boolean guanyador = false;
-		/*Afegim les cartes a la taula*/
-		/*Seleccionem un jugador*/
-
 		gui.funcioTaula(columnesNoms,StringJugadors(llistaJugadors));
 
 		gui.imprimir("Selecciona un jugador escribint el nom, o crean un de nou:");
 
 		jugadorPrincipal = jugadorPrincipal(llistaJugadors,gui.readString(),deck1,gui);
 		gui.ln();gui.ln();
+
 		while (!guanyador){
 			//Mostra missatge de jugador principal
 			gui.imprimir("Jugador: "+llistaJugadors.get(jugadorPrincipal).getNom());
@@ -53,13 +43,32 @@ public class Poker {
 				taula[i] = deck1.getCard();
 			}
 
-			/*Accions*/
 			gui.imprimir(gui.funcioMenu(menuOpcions));
 			int opcioMenu = gui.readInt("Selecciona una opció: ");
-			/*Comprovem les jugades*/
-			for(int i = 0; i < llistaJugadors.size();i++){
-				//System.out.println("Turno de "+llistaJugadors.get(i).getNom()+" amb les cartes:\n"+llistaJugadors.get(i).toString()+"\n"+taula[0]+"\n"+taula[1]+"\n"+taula[2]);
-				//new Jugada(llistaJugadors.get(i).getCarta(0),llistaJugadors.get(i).getCarta(1),taula[0],taula[1],taula[2]);
+			switch (opcioMenu){
+				case 1:  //Apostar
+					break;
+				case 2:  //Pujar
+					break;
+				case 3: //Igualar
+					break;
+				case 4: //Pasar
+					break;
+				case 5: //Retirarse
+					break;
+				case 6: //Jugar
+					break;
+				case 7: //Veure cartes
+					gui.imprimir("Cartes propies");
+					gui.ln();
+					gui.imprimir(llistaJugadors.get(jugadorPrincipal).toString());
+					gui.imprimir("Cartes taula");
+					gui.ln();
+					for(int i = 0; i < cartesMostrades;i++){
+						gui.imprimir(taula[i].toString());
+					}
+					gui.ln();
+					break;
 			}
 		}
 
