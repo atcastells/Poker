@@ -16,9 +16,9 @@ public class Poker {
 		Deck deck1 = new Deck();
 		int jugadorPrincipal;
 		boolean guanyador = false;
+		final int CARTES_TAULA = 5;
 
 		/*Creem Jugadors*/
-		//Creem Llista jugadors
 		ArrayList<Jugadors> llistaJugadors = new ArrayList<Jugadors>();
 
 		afegirJugadors(deck1,llistaJugadors,"Agustí",100);
@@ -26,23 +26,25 @@ public class Poker {
 		afegirJugadors(deck1,llistaJugadors,"Marc",100);
 		afegirJugadors(deck1,llistaJugadors,"Aaron",100);
 
+		/*Imprimim el llistat de jugadors*/
 		gui.funcioTaula(columnesNoms,StringJugadors(llistaJugadors));
-
 		gui.imprimir("Selecciona un jugador escribint el nom, o crean un de nou:");
-
-		jugadorPrincipal = jugadorPrincipal(llistaJugadors,gui.readString(),deck1,gui);
+		jugadorPrincipal = jugadorPrincipal(llistaJugadors,gui.readString(),deck1,gui); //Seleccionem el jugador principal
 		gui.ln();gui.ln();
 
+
+		/*Creem la taula*/
+		Carta[] cartesTaula = new Carta[CARTES_TAULA];
+		for (int i = 0; i < CARTES_TAULA;i++){
+			cartesTaula[i] = deck1.getCard();
+		}
+		Taula taula1 = new Taula(cartesTaula,3,10);
+
+		/*Començem el loop principal*/
 		while (!guanyador){
 			//Mostra missatge de jugador principal
 			gui.imprimir("Jugador: "+llistaJugadors.get(jugadorPrincipal).getNom());
 			gui.ln();gui.ln();
-			int cartesMostrades = 2;	//
-			Carta[] taula = new Carta[5];
-			for (int i = 0; i < taula.length && i < cartesMostrades; i++) {
-				taula[i] = deck1.getCard();
-			}
-
 			gui.imprimir(gui.funcioMenu(menuOpcions));
 			int opcioMenu = gui.readInt("Selecciona una opció: ");
 			switch (opcioMenu){
@@ -59,17 +61,21 @@ public class Poker {
 				case 6: //Jugar
 					break;
 				case 7: //Veure cartes
-					gui.imprimir("Cartes propies");
+					gui.ln();
+					gui.imprimir("Cartes propies:");
 					gui.ln();
 					gui.imprimir(llistaJugadors.get(jugadorPrincipal).toString());
-					gui.imprimir("Cartes taula");
+					gui.ln();gui.ln();
+					gui.imprimir("Cartes taula:");
 					gui.ln();
-					for(int i = 0; i < cartesMostrades;i++){
-						gui.imprimir(taula[i].toString());
+					for(int i = 0; i < taula1.cartesMostrades;i++){
+						gui.imprimir(taula1.getCarta(i));
+						gui.ln();
 					}
 					gui.ln();
 					break;
 			}
+			gui.enterContinue();
 		}
 
 	}
