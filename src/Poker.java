@@ -123,14 +123,17 @@ public class Poker {
 					gui.enterContinue();
 				}
 				else {
+					evaluarJugades(llistaJugadors,i);
+
 
 				}
+            }
 
 			}
 
 		}
 
-	}
+
 
 	/**************************FUNCIONS AUXILIARS***********************************/
 	String[][] StringJugadors(ArrayList<Jugadors> llistaJugadors){
@@ -165,6 +168,9 @@ public class Poker {
 	void afegirJugadors(Deck deck1,ArrayList<Jugadors> llistaJugadors,String nom,int diners){
 		llistaJugadors.add(new Jugadors(nom,diners,deck1.getCard(),deck1.getCard()));
 
+	}
+	int evaluarJugades(ArrayList<Jugadors> llistaJugadors,int numJugador){
+        return -1;
 	}
 	String[] menuOpcions = {"Apostar","Pujar","Igualar","Pasar","Retirarse","Jugar","Veure Cartes"};
 

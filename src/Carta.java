@@ -10,7 +10,7 @@ public class Carta {
 		numero = num;
 	}
 
-	Numeros getNumero(){
+	Numeros Numero(){
 		return numero;
 	}
 
