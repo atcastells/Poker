@@ -16,7 +16,7 @@ public class Poker {
 		Deck deck1 = new Deck();
 		int jugadorPrincipal;
 		boolean guanyador = false;
-		final int CARTES_TAULA = 5;
+		final int CARTES_TAULA = 30;
 
 		/*Creem Jugadors*/
 		ArrayList<Jugadors> llistaJugadors = new ArrayList<Jugadors>();
@@ -38,7 +38,7 @@ public class Poker {
 		for (int i = 0; i < CARTES_TAULA;i++){
 			cartesTaula[i] = deck1.getCard();
 		}
-		Taula taula1 = new Taula(cartesTaula,3,10);
+		Taula taula1 = new Taula(cartesTaula,29,10);
 
 		/*Començem el loop principal*/
 		while (!guanyador){
@@ -120,7 +120,7 @@ public class Poker {
 								break;
 							case 8:	//TEST
 								gui.ln();
-								gui.imprimir("Les jugades que tens disponibles son: ");
+								gui.imprimir("Les jugades que tens disponibles son: \n");
 								/*Creem array amb les cartes del jugador + taula*/
 								Carta[] cartesjugador = new Carta[taula1.cartesMostrades + llistaJugadors.get(jugadorPrincipal).ma.length];
 								int controlArray = 0;
@@ -134,7 +134,20 @@ public class Poker {
 								}
 								Jugada jugada01 = new Jugada(cartesjugador);
 								if(!(jugada01.cartaMesAlta == null)){
-									gui.imprimir("La carta mes alta es "+jugada01.cartaMesAlta[0].toString());
+									gui.imprimir("La carta mes alta es "+jugada01.cartaMesAlta[0].toString()+"\n");
+
+								}
+								if(!(jugada01.parella == null)){
+									gui.imprimir("Parella de "+jugada01.parella[0].toString()+ " i "+jugada01.parella[1]+"\n");
+								}
+								if(!(jugada01.dobleParella == null)){
+									gui.imprimir("Doble parella de "+jugada01.dobleParella[0].toString()+ " i "+jugada01.dobleParella[2]+"\n");
+								}
+								if(!(jugada01.trio == null)){
+									gui.imprimir("Trio de "+jugada01.trio[0].toString()+"\n");
+								}
+								if(!(jugada01.escala == null)){
+									gui.imprimir("Escala de "+jugada01.escala[0]+" a "+ jugada01.escala[jugada01.escala.length-1]);
 								}
 								break;
 						}

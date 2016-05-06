@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by Aaron Castells on 05/04/2016.
  */
@@ -54,7 +56,7 @@ public class Jugada {
         /*Ordenem la array*/
         for (int i = 0; i < jugada.length; i++) {
             for (int j = i+1; j < jugada.length; j++) {
-                if(jugada[i].Numero().getNumero() > jugada[j].Numero().getNumero()){
+                if(jugada[i].Numero().getPosicio() > jugada[j].Numero().getPosicio()){
                     temp = jugada[i];
                     jugada[i] = jugada[j];
                     jugada[j] = temp;
@@ -62,23 +64,18 @@ public class Jugada {
             }
         }
         /*Comprobem si hi ha escala*/
-        for (int i = 0; i < jugada.length && !Escala; i++) {
-            for (int j = i+1; j < jugada.length; j++) {
-                if(jugada[i].Numero().next() == jugada[j].Numero()){
+        for (int i = 0; i < jugada.length; i++) {
+            for (int j = i+1; j < jugada.length && !Escala; j++) {
+                if(jugada[i].Numero().getPosicio() +1 == jugada[j].Numero().getPosicio()){
+                    jugada[i] = array[contadorEscala]
+                    i = j;
                     contadorEscala++;
-                    array[contadorEscala - 1] = jugada[i];
-                    if(contadorEscala == 5){
-                        Escala = true;
+
+                    if (contadorEscala == 5){
+
                     }
                 }
-                else {
-                    if(contadorEscala > 0){
-                        contadorEscala = 0;
-                    }
-                    else {
-                        i++;
-                    }
-                }
+
             }
 
         }
@@ -109,34 +106,45 @@ public class Jugada {
         return null;
     }
     public Carta[] jugadaDobleParella(Carta[] jugada){
+        ArrayList<Carta> llistaCartes  = new ArrayList<Carta>();
+
+        for (int i = 0; i < jugada.length; i++) {
+            llistaCartes.add(jugada[i]);
+        }
         Carta[] array = new Carta[4];
+
         if(parella == null){
             return null;
         }
+
         array[0] = jugadaParella(jugada)[0];
         if (array[0] == null){
             return null;
         }
-        Carta[] arrayParella2 = new Carta[jugada.length-2]; //Creem una array per buscar la segona parella
         array[1] = jugadaParella(jugada)[1];
-        int contador = 0;   //Contador per inserir a la array nova
-        int cartesAeliminar = jugada.length - arrayParella2.length;
-        for (int i = 0; i < jugada.length; i++) {   //Eliminem les dos cartes de la 1a parella de la llista de cartes
-            for (int j = i + 1; j < array.length; j++) {
-                if(!(jugada[i].equals(array[j])) && !(array[j] == null)){
-                    arrayParella2[contador] = jugada[i];
-                    contador++;
-                }
+
+        /*Eliminem les cartes de la parella anterior de la llista*/
+        int contador = 0;
+        for (int i = 0; i < llistaCartes.size(); i++) {
+            if(llistaCartes.get(i).equals(array[contador]) && contador < 2){
+                llistaCartes.remove(i);
+                contador++;
             }
         }
-        if(jugadaParella(arrayParella2) == null){
+        int controlArray = 0;
+        /*Creem una array a partir de la Arraylist*/
+        Carta[] arrayDobleParella = new Carta[llistaCartes.size()];
+        arrayDobleParella = (Carta[])llistaCartes.toArray(arrayDobleParella);
+
+
+        if(jugadaParella(arrayDobleParella) == null){
             return null;
         }
-        array[2] = jugadaParella(arrayParella2)[0];
+        array[2] = jugadaParella(arrayDobleParella)[0];
         if (array[2] == null){
             return null;
         }
-        array[3] = jugadaParella(arrayParella2)[1];
+        array[3] = jugadaParella(arrayDobleParella)[1];
         return array;
     }
     public Carta[] jugadaParella(Carta[] jugada){
@@ -169,6 +177,7 @@ public class Jugada {
         for (int i = 0; i < jugada.length; i++) {
             if(jugada[i].Numero().getNumero() > valorCartaAlta){
                 cartaAlta = jugada[i];
+                valorCartaAlta = cartaAlta.Numero().getNumero();
                 coincidencies++;
             }
         }

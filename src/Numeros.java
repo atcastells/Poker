@@ -14,6 +14,14 @@ public enum Numeros {
 		return numero;
 	}
 
+	public int getPosicio(){
+		int n = numero;
+		if (n == 14){
+			n = 1;
+		}
+		return n;
+	}
+
 	public String toString(){
 		if(numero >=2 && numero <=10){
 			return numero+"";
