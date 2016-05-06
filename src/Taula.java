@@ -25,8 +25,11 @@ public class Taula {
 	int getDiners(){
 		return diners;
 	}
-	String getCarta(int x){
+	String stringCartes(int x){
 		return cartesTaula[x].toString();
+	}
+	Carta getCarta(int x){
+		return cartesTaula[x];
 	}
 	int getApostaMax(){
 		return apostaMax;

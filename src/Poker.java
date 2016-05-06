@@ -113,10 +113,29 @@ public class Poker {
 								gui.imprimir("Cartes taula:");
 								gui.ln();
 								for(int j = 0; j < taula1.cartesMostrades;j++){
-									gui.imprimir(taula1.getCarta(j));
+									gui.imprimir(taula1.stringCartes(j));
 									gui.ln();
 								}
 								gui.ln();
+								break;
+							case 8:	//TEST
+								gui.ln();
+								gui.imprimir("Les jugades que tens disponibles son: ");
+								/*Creem array amb les cartes del jugador + taula*/
+								Carta[] cartesjugador = new Carta[taula1.cartesMostrades + llistaJugadors.get(jugadorPrincipal).ma.length];
+								int controlArray = 0;
+								for (int j = 0; j < llistaJugadors.get(jugadorPrincipal).ma.length; j++) {
+									cartesjugador[controlArray] = llistaJugadors.get(jugadorPrincipal).ma[j];
+									controlArray++;
+								}
+								for (int j = 0; j < taula1.cartesMostrades; j++) {
+									cartesjugador[controlArray] = taula1.cartesTaula[j];
+									controlArray++;
+								}
+								Jugada jugada01 = new Jugada(cartesjugador);
+								if(!(jugada01.cartaMesAlta == null)){
+									gui.imprimir("La carta mes alta es "+jugada01.cartaMesAlta[0].toString());
+								}
 								break;
 						}
 					}
@@ -172,7 +191,7 @@ public class Poker {
 	int evaluarJugades(ArrayList<Jugadors> llistaJugadors,int numJugador){
         return -1;
 	}
-	String[] menuOpcions = {"Apostar","Pujar","Igualar","Pasar","Retirarse","Jugar","Veure Cartes"};
+	String[] menuOpcions = {"Apostar","Pujar","Igualar","Pasar","Retirarse","Jugar","Veure Cartes","TEST"};
 
 	/*Arrays columnes*/
 	String[] columnesNoms = {"Nom","Credit"};

@@ -13,9 +13,6 @@ public enum Numeros {
 	public int getNumero() {
 		return numero;
 	}
-	public int valorNum(){
-		return;
-	}
 
 	public String toString(){
 		if(numero >=2 && numero <=10){
