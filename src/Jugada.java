@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -47,12 +48,14 @@ public class Jugada {
     public Carta[] jugadaColor(Carta[] jugada){
         return null;
     }
+
     public Carta[] jugadaEscala(Carta[] jugada){
         Numeros num = null;     //Variable per comprobar escala
         boolean Escala = false;
         Carta temp = null;
         int contadorEscala = 0;
         Carta[] array = new Carta[5];
+
         /*Ordenem la array*/
         for (int i = 0; i < jugada.length; i++) {
             for (int j = i+1; j < jugada.length; j++) {
@@ -63,28 +66,52 @@ public class Jugada {
                 }
             }
         }
-        /*Comprobem si hi ha escala*/
-        for (int i = 0; i < jugada.length; i++) {
-            for (int j = i+1; j < jugada.length && !Escala; j++) {
-                if(jugada[i].Numero().getPosicio() +1 == jugada[j].Numero().getPosicio()){
-                    jugada[i] = array[contadorEscala]
-                    i = j;
-                    contadorEscala++;
 
-                    if (contadorEscala == 5){
+        /*Eliminem cartes amb numeros repetits*/
+        ArrayList<Carta> llistaCartes = new ArrayList<Carta>();
+        Numeros numEliminar = null;
+        boolean numeroGuardat = false;
 
+        for (int i = 0; i < Numeros.values().length; i++) {
+            numEliminar = Numeros.values()[i];
+            for (int j = 0; j < jugada.length; j++) {
+                if(jugada[j].Numero() == numEliminar){
+                    if(!numeroGuardat){
+                        numeroGuardat = true;
+                        llistaCartes.add(jugada[j]);
                     }
                 }
-
             }
+            numeroGuardat = false;
+        }
 
+        Carta[] arrayEscala = new Carta[llistaCartes.size()];
+        arrayEscala = (Carta[])llistaCartes.toArray(arrayEscala);
+
+        /*Comprobem si hi ha escala*/
+        for (int i = 0; i < arrayEscala.length; i++) {
+            for (int j = i+1; j < arrayEscala.length && !Escala; j++) {
+                if(arrayEscala[i].Numero().getPosicio() +1 == arrayEscala[j].Numero().getPosicio()){
+                    array[contadorEscala] =  arrayEscala[i];
+                    i = j;
+                    contadorEscala++;
+                    if (contadorEscala == 5){
+                        if(arrayEscala.length >=5){
+                            Carta[] escalaMesGran = new Carta[arrayEscala.length-1];
+                            for (int k = 0; k < escalaMesGran.length; k++) {
+                                escalaMesGran[k] = arrayEscala[k+1];
+                            }
+                            if(!(jugadaEscala(escalaMesGran) == null)){
+                                return jugadaEscala(escalaMesGran);
+                            }
+                        }
+                        return array;
+                    }
+                }
+            }
+            contadorEscala = 0;
         }
-        if (Escala){
-            return array;
-        }
-        else {
             return null;
-        }
     }
     public Carta[] jugadaTrio(Carta[] jugada){
         Carta[] array = new Carta[3];
